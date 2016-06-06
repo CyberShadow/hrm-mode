@@ -136,7 +136,7 @@
      )
 
     ;; everything else
-    (".*" . 'hrm-mode-error-face
+    ("." . 'hrm-mode-error-face
      )
 
     )
