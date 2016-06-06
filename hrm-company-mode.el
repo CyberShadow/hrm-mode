@@ -20,12 +20,15 @@ COMMAND is the completion command, ARG is its argument, IGNORED is ignored."
   (interactive (list 'interactive))
   (cl-case command
     (interactive (company-begin-backend 'hrm-company-mode-backend))
-    (prefix (company-grab-symbol))
-    (candidates (when (equal arg "foo")
-                  (list "foobar" "foobaz" "foobarbaz")))
-    (meta (format "This value is named %s" arg))))
+    (prefix (and (eq major-mode 'hrm-mode)
+    		 (company-grab-symbol)))
+    ;; (prefix (company-grab-symbol))
+    (candidates
+     (cl-remove-if-not
+      (lambda (c) (string-prefix-p arg c))
+      hrm-mode-opcodes))))
 
-;; (add-hook hrm-mode-hook
+(add-to-list 'company-backends 'hrm-company-mode-backend)
 
 (provide 'hrm-company-mode)
 ;;; hrm-company-mode.el ends here
