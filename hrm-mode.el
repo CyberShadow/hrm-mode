@@ -102,28 +102,9 @@
      )
 
     ;; ;; Drawn labels
-    ;; ("^\\s-*\\(DEFINE \\(COMMENT\\|LABEL\\)\\) \\([0-9]\\)\n\\([a-zA-Z/+]*\\)\\(;\\)$"
-    ;;  (1 hrm-mode-instruction-face t)
-    ;;  (3 font-lock-builtin-face t)
-    ;;  (4 font-lock-string-face t)
-    ;;  (5 font-lock-builtin-face t)
-    ;;  )
-
     ("^\\s-*\\(DEFINE \\(COMMENT\\|LABEL\\)\\) \\([0-9]+\\)$"
      (1 'hrm-mode-definition-face)
      (3 'hrm-mode-number-face t)
-     ;; ("^\\([a-zA-Z0-9/+]*\\)\\(;?\\)$"
-     ;; 	(hrm-mode-end-of-data)
-     ;; 	nil
-     ;; 	(1 font-lock-string-face)
-     ;; 	(2 font-lock-builtin-face)
-     ;; 	)
-     ;; ("^\\([a-zA-Z0-9/+]*\\)\\(;\\)$"
-     ;; 	(hrm-mode-end-of-data)
-     ;; 	nil
-     ;; 	(1 font-lock-string-face)
-     ;; 	(2 font-lock-builtin-face)
-     ;; 	)
      ("[a-zA-Z0-9/+]"
       (hrm-mode-end-of-data)
       nil
@@ -177,11 +158,6 @@
       (if (looking-at "\\(INBOX\\|OUTBOX\\|COPYFROM\\|COPYTO\\|ADD\\|SUB\\|BUMPUP\\|BUMPDN\\|JUMP\\|JUMPZ\\|JUMPN\\|COMMENT\\)")
 	  (indent-line-to 4)
 	(indent-line-to 0)))))
-;; (cond
-;;  ((string-memq memql w '("INBOX" "OUTBOX" "COPYFROM" "COPYTO" "ADD" "SUB" "BUMPUP" "BUMPDN" "JUMP" "JUMPZ" "JUMPN" "COMMENT"))
-;; 	(indent-line-to 4))
-;;  (t
-;; 	(indent-line-to 0))))))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '(".hrm\\'" . hrm-mode))
