@@ -162,7 +162,7 @@
 	(indent-line-to 0)))))
 
 ;;;###autoload
-(add-to-list 'auto-mode-alist '(".hrm\\'" . hrm-mode))
+(add-to-list 'auto-mode-alist '("\\.hrm\\'" . hrm-mode))
 
 (provide 'hrm-mode)
 ;;; hrm-mode.el ends here
