@@ -24,6 +24,11 @@
   :link '(url-link "https://tomorrowcorporation.com/humanresourcemachine")
   :group 'languages)
 
+(defface hrm-mode-comment-face
+  '((t :inherit font-lock-comment-face))
+  "Font for comments."
+  :group 'hrm-mode)
+
 (defface hrm-mode-instruction-face
   '((t :inherit font-lock-keyword-face))
   "Font for instruction opcodes."
@@ -59,19 +64,12 @@
   "Font for invalid syntax."
   :group 'hrm-mode)
 
-;;;###autoload
-(define-generic-mode
-    'hrm-mode
-  ;; comments
-  '("--")
-
-  ;; keywords we can't or won't regex
-  '(
-    ;; "INBOX" "OUTBOX" "COPYFROM" "COPYTO" "ADD" "SUB" "BUMPUP" "BUMPDN" "JUMP" "JUMPZ" "JUMPN" "COMMENT"
-    )
-
-  ;; everything we can regex (opcodes followed by the rest)
+(defvar hrm-mode-font-lock-keywords)
+(setq hrm-mode-font-lock-keywords
   `(
+    ;; Comments
+    ("--.*$" . 'hrm-mode-comment-face)
+
     ;; Basic instructions (without arguments)
     ("^\\s-*\\(INBOX\\|OUTBOX\\)"
      (1 'hrm-mode-instruction-face)
@@ -103,7 +101,7 @@
      (2 'hrm-mode-punctuation-face)
      )
 
-    ;; ;; Drawn labels
+    ;; Drawn labels
     ("^\\s-*\\(DEFINE \\(COMMENT\\|LABEL\\)\\) \\([0-9]+\\)$"
      (1 'hrm-mode-definition-face)
      (3 'hrm-mode-number-face t)
@@ -119,29 +117,30 @@
       )
      )
 
-    ;; everything else
-    ("." . 'hrm-mode-error-face
-     )
+    ;; Anything else is an error
+    ("." . 'hrm-mode-error-face)))
 
-    )
+;;;###autoload
+(define-derived-mode hrm-mode prog-mode "HRM"
+  "Major mode for editing Human Resource Machine programs."
 
-  '(
-    "\\.hrm$"
-    )
+  :group 'hrm-mode
 
-  (list
-   (function
-    (lambda ()
-      (setq-local indent-line-function 'hrm-mode-indent-function)
-      (setq font-lock-multiline t)
-      (setq imenu-generic-expression
-	    '(("Label" "^\\(.*\\):" 1)
-	      ))
-      (setq case-fold-search nil)
-      )))
+  ;; Settings
+  (setq-local indent-line-function 'hrm-mode-indent-function)
+  (setq-local font-lock-multiline t)
+  (setq-local imenu-generic-expression
+	'(("Label" "^\\(.*\\):" 1)
+	  ))
+  (setq-local case-fold-search nil)
 
-  "A mode for Human Resource Machine programs"
-  )
+  ;; Comments
+  (setq-local comment-start "-- ")
+  (setq-local comment-end   "")
+
+  ;; Syntax
+  (setq-local font-lock-defaults '(hrm-mode-font-lock-keywords
+                                   nil nil nil nil)))
 
 (defun hrm-mode-end-of-data (&rest foo)
   "Return position of the end of data blocks.  FOO is ignored."
