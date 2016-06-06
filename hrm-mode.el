@@ -27,12 +27,12 @@
   :group 'hrm-mode)
 
 (defface hrm-mode-number-face
-  '((t :inherit font-lock-builtin-face))
+  '((t :inherit default))
   "Font for numbers."
   :group 'hrm-mode)
 
 (defface hrm-mode-punctuation-face
-  '((t :inherit font-lock-warning-face))
+  '((t :inherit font-lock-builtin-face))
   "Font for punctuation characters."
   :group 'hrm-mode)
 
@@ -42,7 +42,7 @@
   :group 'hrm-mode)
 
 (defface hrm-mode-definition-face
-  '((t :inherit font-lock-keyword-face))
+  '((t :inherit hrm-mode-instruction-face))
   "Font for keywords defining labels."
   :group 'hrm-mode)
 
