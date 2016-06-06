@@ -150,6 +150,11 @@
     (forward-char)
     (point)))
 
+(defconst hrm-mode-opcodes
+  '("INBOX" "OUTBOX" "COPYFROM" "COPYTO" "ADD" "SUB" "BUMPUP" "BUMPDN" "JUMP" "JUMPZ" "JUMPN" "COMMENT"))
+(defconst hrm-mode-opcodes-regex
+  (concat "\\(" (mapconcat 'identity hrm-mode-opcodes "\\|") "\\)"))
+
 (require 'thingatpt)
 (defun hrm-mode-indent-function ()
   "Human Resource Machine indent rule."
@@ -157,7 +162,7 @@
     (back-to-indentation)
     (let ((w (word-at-point)))
       ;; (message w)
-      (if (looking-at "\\(INBOX\\|OUTBOX\\|COPYFROM\\|COPYTO\\|ADD\\|SUB\\|BUMPUP\\|BUMPDN\\|JUMP\\|JUMPZ\\|JUMPN\\|COMMENT\\)")
+      (if (looking-at hrm-mode-opcodes-regex)
 	  (indent-line-to 4)
 	(indent-line-to 0)))))
 
