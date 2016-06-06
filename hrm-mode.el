@@ -1,4 +1,4 @@
-;;; hrm-mode.el --- A Major Emacs mode for editing Human Resource Machine programs.
+;;; hrm-mode.el --- Major mode for Human Resource Machine programs.
 
 ;; Version: 0.1.0
 ;; Author: Vladimir Panteleev
@@ -7,6 +7,8 @@
 ;; Package-Requires: ((emacs "24.0"))
 
 ;;; Commentary:
+
+;; A Major Emacs mode for editing Human Resource Machine programs.
 
 ;; Spoiler warning: contains a full list of instructions.
 ;; (Additional instructions are discovered as the game progresses.)
