@@ -1,5 +1,6 @@
 ;;; hrm-mode.el --- A Major Emacs mode for editing Human Resource Machine programs.
 
+;; Version: 0.1.0
 ;; Author: Vladimir Panteleev
 ;; Url: https://github.com/CyberShadow/hrm-mode
 ;; Keywords: languages
@@ -182,8 +183,8 @@
 ;;  (t
 ;; 	(indent-line-to 0))))))
 
-;; ;;;###autoload
-;; (add-to-list 'auto-mode-alist '(".hrm\\'" . hrm-mode))
+;;;###autoload
+(add-to-list 'auto-mode-alist '(".hrm\\'" . hrm-mode))
 
 (provide 'hrm-mode)
 ;;; hrm-mode.el ends here
