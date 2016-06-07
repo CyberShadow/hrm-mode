@@ -4,7 +4,7 @@
 ;; Author: Vladimir Panteleev
 ;; Url: https://github.com/CyberShadow/hrm-mode
 ;; Keywords: languages
-;; Package-Requires: ((emacs "24.0"))
+;; Package-Requires: ((emacs "24.0") (hrm-mode "0.1.0") (company "0.9.0-cvs"))
 
 ;;; Commentary:
 
