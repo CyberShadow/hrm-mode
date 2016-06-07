@@ -17,8 +17,6 @@
 
 (require 'generic)
 
-(defconst hrm-mode-re-label "\\([a-zA-Z][a-zA-Z0-9]*\\)")
-
 (defgroup hrm-mode nil
   "Major mode for editing Human Resource Machine programs."
   :link '(url-link "https://tomorrowcorporation.com/humanresourcemachine")
@@ -64,6 +62,12 @@
   "Font for invalid syntax."
   :group 'hrm-mode)
 
+(defconst hrm-mode-re-label-name "\\([a-zA-Z][a-zA-Z0-9]*\\)")
+
+(defconst hrm-mode-re-label (concat "^\\s-*" hrm-mode-re-label-name "\\(:\\)"))
+
+(defconst hrm-mode-re-op-jump (concat "^\\s-*\\(JUMP\\|JUMPZ\\|JUMPN\\)\\s-+" hrm-mode-re-label-name))
+
 (defvar hrm-mode-font-lock-keywords)
 (setq hrm-mode-font-lock-keywords
   `(
@@ -90,13 +94,13 @@
      )
     
     ;; Jump instructions (with label argument)
-    (,(concat "^\\s-*\\(JUMP\\|JUMPZ\\|JUMPN\\)\\s-+" hrm-mode-re-label)
+    (,hrm-mode-re-op-jump
      (1 'hrm-mode-instruction-face)
      (2 'hrm-mode-label-face)
      )
     
     ;; Jump labels
-    (,(concat "^\\s-*" hrm-mode-re-label "\\(:\\)")
+    (,hrm-mode-re-label
      (1 'hrm-mode-label-face)
      (2 'hrm-mode-punctuation-face)
      )
@@ -118,7 +122,7 @@
      )
 
     ;; Anything else is an error
-    ("." . 'hrm-mode-error-face)))
+    ("[^ \n]" . 'hrm-mode-error-face)))
 
 ;;;###autoload
 (define-derived-mode hrm-mode prog-mode "HRM"
