@@ -68,6 +68,15 @@
 
 (defconst hrm-mode-re-op-jump (concat "^\\s-*\\(JUMP\\|JUMPZ\\|JUMPN\\)\\s-+" hrm-mode-re-label-name))
 
+(defun hrm-mode-get-labels ()
+  "Return a list of all labels in the current buffer."
+  (let (known-labels)
+    (save-excursion
+      (goto-char (point-min))
+      (while (search-forward-regexp hrm-mode-re-label nil t)
+	(add-to-list 'known-labels (match-string 1)))
+      known-labels)))
+
 (defvar hrm-mode-font-lock-keywords)
 (setq hrm-mode-font-lock-keywords
   `(

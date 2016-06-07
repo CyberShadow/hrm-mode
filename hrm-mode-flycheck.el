@@ -25,11 +25,7 @@ CALLBACK is the status callback passed by Flycheck."
 	  (push (flycheck-error-new-at (line-number-at-pos) (current-column) 'error "Invalid syntax") errors)
 	  (forward-line)))
 
-      (let (known-labels)
-	(goto-char (point-min))
-	(while (search-forward-regexp hrm-mode-re-label nil t)
-	  (add-to-list 'known-labels (match-string 1)))
-
+      (let ((known-labels (hrm-mode-get-labels)))
 	(goto-char (point-min))
 	(while (search-forward-regexp hrm-mode-re-op-jump nil t)
 	  (unless (member (match-string 2) known-labels)

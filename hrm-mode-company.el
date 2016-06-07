@@ -26,7 +26,7 @@ COMMAND is the completion command, ARG is its argument, IGNORED is ignored."
     (candidates
      (cl-remove-if-not
       (lambda (c) (string-prefix-p arg c))
-      hrm-mode-opcodes))))
+      (nconc (hrm-mode-get-labels) hrm-mode-opcodes)))))
 
 (add-to-list 'company-backends 'hrm-mode-company-backend)
 
